@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shota Goshozona | Animator / Director / Writer</title>
+<meta name="description" content="Portfolio of Shota Goshozona - Animator, Storyboard Artist, Screenwriter, Director based in France.">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== Password Screen ===== */
+#pw-screen{position:fixed;inset:0;background:rgba(10,10,15,.97);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;backdrop-filter:blur(30px)}
+#pw-screen.hidden{display:none}
+#pw-screen .pw-box{background:rgba(20,20,30,.8);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:3rem 2.5rem;text-align:center;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#pw-screen input{padding:14px 22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:10px;font-size:16px;width:280px;text-align:center;outline:none;transition:border-color .3s;font-family:var(--font)}
+#pw-screen input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(201,168,76,.15)}
+#pw-screen button{padding:12px 36px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0a0a;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.05em;transition:transform .2s,box-shadow .2s;font-family:var(--font)}
+#pw-screen button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.3)}
+#pw-screen .pw-err{color:#ff6b6b;font-size:12px;min-height:18px}
+#pw-screen h2{color:var(--accent);font-size:1.2rem;letter-spacing:4px;margin-bottom:.5rem;font-weight:300}
+/* ===== Reset & Base ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#0e0e16;
+  --bg3:#14141e;
+  --text:#e8e6e3;
+  --text-dim:#8a8794;
+  --accent:#c9a84c;
+  --accent2:#e0c56a;
+  --accent-glow:rgba(201,168,76,.15);
+  --card:rgba(18,18,28,.6);
+  --card-solid:#12121c;
+  --glass:rgba(255,255,255,.03);
+  --glass-border:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.08);
+  --radius:14px;
+  --font:'Inter','Noto Sans JP','Segoe UI',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  overflow-x:hidden;
+}
+a{color:var(--accent);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent2)}
+img{max-width:100%;display:block}
+::selection{background:var(--accent);color:var(--bg)}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.2)}
+
+/* ===== Scroll Progress ===== */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:1000;width:0;transition:width .1s linear}
+
+/* ===== Navigation ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,10,15,.7);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glass-border);
+  transition:transform .3s ease, background .3s;
+}
+.nav.scrolled{background:rgba(10,10,15,.9)}
+.nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.8rem 2rem;
+}
+.nav-logo{
+  font-size:1.15rem;font-weight:800;letter-spacing:.08em;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.nav-links{display:flex;gap:1.8rem;align-items:center;list-style:none}
+.nav-links a{
+  font-size:.82rem;color:var(--text-dim);font-weight:500;
+  letter-spacing:.04em;transition:color .2s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;
+  background:var(--accent);transition:width .3s;
+}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+
+/* Lang switcher */
+.lang-switch{display:flex;gap:.3rem}
+.lang-btn{
+  padding:.25rem .6rem;border:1px solid var(--border);border-radius:6px;
+  background:transparent;color:var(--text-dim);font-size:.72rem;
+  cursor:pointer;transition:all .25s;font-weight:600;font-family:var(--font);
+  letter-spacing:.03em;
+}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-btn.active{
+  background:var(--accent);color:var(--bg);border-color:var(--accent);
+}
+
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ===== Sections ===== */
+section{padding:7rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-header{margin-bottom:3.5rem}
+.section-title{
+  font-size:2.2rem;font-weight:800;margin-bottom:.3rem;
+  background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  letter-spacing:.02em;
+}
+.section-sub{
+  font-size:.85rem;color:var(--text-dim);margin-bottom:1.2rem;
+  letter-spacing:.05em;
+}
+.section-line{
+  width:40px;height:2px;background:linear-gradient(90deg,var(--accent),transparent);
+}
+
+/* ===== Hero ===== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  background:var(--bg);
+}
+.hero-bg{
+  position:absolute;inset:0;overflow:hidden;
+}
+.hero-bg::before{
+  content:'';position:absolute;
+  width:600px;height:600px;
+  top:-200px;right:-100px;
+  background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 70%);
+  animation:heroGlow 8s ease-in-out infinite alternate;
+}
+.hero-bg::after{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  bottom:-100px;left:-100px;
+  background:radial-gradient(circle,rgba(100,80,200,.05) 0%,transparent 70%);
+  animation:heroGlow 10s ease-in-out infinite alternate-reverse;
+}
+@keyframes heroGlow{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(30px,20px) scale(1.15)}
+}
+/* Floating particles */
+.hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-particles span{
+  position:absolute;width:2px;height:2px;background:var(--accent);border-radius:50%;
+  opacity:0;animation:particle 6s linear infinite;
+}
+@keyframes particle{
+  0%{opacity:0;transform:translateY(100vh)}
+  10%{opacity:.4}
+  90%{opacity:.4}
+  100%{opacity:0;transform:translateY(-10vh)}
+}
+.hero-content{
+  text-align:center;z-index:1;
+  animation:fadeUp .8s ease-out;
+}
+.hero-label{
+  display:inline-block;
+  padding:.35rem 1rem;margin-bottom:1.5rem;
+  border:1px solid var(--border);border-radius:20px;
+  font-size:.72rem;color:var(--text-dim);letter-spacing:.12em;
+  text-transform:uppercase;
+  backdrop-filter:blur(10px);
+  background:var(--glass);
+}
+.hero-name{
+  font-size:clamp(2.5rem,5.5vw,4.2rem);font-weight:900;
+  letter-spacing:.04em;margin-bottom:.6rem;
+  background:linear-gradient(135deg,#fff 0%,var(--accent) 50%,var(--accent2) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 4s ease infinite;
+}
+@keyframes shimmer{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.hero-title{
+  font-size:clamp(.85rem,1.8vw,1.05rem);color:var(--text-dim);
+  letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.5rem;
+  font-weight:400;
+}
+.hero-tagline{
+  font-size:clamp(.9rem,1.4vw,1.05rem);color:var(--text-dim);
+  max-width:520px;margin:0 auto 2.8rem;line-height:1.9;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.85rem 2.4rem;
+  border:1px solid rgba(201,168,76,.4);color:var(--accent);
+  border-radius:var(--radius);font-size:.85rem;font-weight:600;
+  letter-spacing:.05em;transition:all .3s;
+  background:rgba(201,168,76,.05);
+  backdrop-filter:blur(10px);
+}
+.hero-cta:hover{
+  background:var(--accent);color:var(--bg);
+  box-shadow:0 8px 30px rgba(201,168,76,.3);
+  transform:translateY(-2px);
+}
+.hero-cta svg{width:16px;height:16px;transition:transform .3s}
+.hero-cta:hover svg{transform:translateX(3px)}
+
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  animation:float 3s ease-in-out infinite;
+}
+.hero-scroll svg{width:18px;height:18px;stroke:var(--text-dim);opacity:.5}
+
+/* ===== About ===== */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;
+}
+.about-text p{margin-bottom:1.2rem;color:var(--text-dim);font-size:.92rem;line-height:1.9}
+.about-text p strong{color:var(--text);font-weight:600}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+}
+.stat-card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);padding:1.6rem;text-align:center;
+  transition:all .3s;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.stat-card:hover{
+  border-color:rgba(201,168,76,.3);
+  background:rgba(201,168,76,.05);
+  transform:translateY(-3px);
+}
+.stat-num{font-size:2.2rem;font-weight:900;color:var(--accent);line-height:1}
+.stat-label{font-size:.75rem;color:var(--text-dim);margin-top:.5rem;letter-spacing:.04em}
+
+/* ===== Featured Works ===== */
+.featured-section{padding:6rem 2rem;position:relative}
+.featured-section::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:80%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+.featured-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  max-width:1100px;margin:0 auto;
+}
+.featured-card{
+  background:var(--glass);
+  border:1px solid rgba(201,168,76,.15);
+  border-radius:var(--radius);overflow:hidden;
+  position:relative;transition:all .4s;
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.featured-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.08),transparent 60%);
+  opacity:0;transition:opacity .4s;z-index:0;
+}
+.featured-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(201,168,76,.4);
+  box-shadow:0 20px 50px rgba(201,168,76,.15),0 0 0 1px rgba(201,168,76,.1);
+}
+.featured-card:hover::before{opacity:1}
+.featured-badge{
+  position:absolute;top:14px;right:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);
+  font-size:.62rem;font-weight:700;padding:.3rem .8rem;
+  border-radius:20px;letter-spacing:.06em;text-transform:uppercase;z-index:2;
+}
+.featured-thumb{
+  height:160px;
+  background:linear-gradient(135deg,rgba(20,20,30,.8),rgba(10,10,15,.9));
+  display:flex;align-items:center;justify-content:center;
+  font-size:3rem;border-bottom:1px solid var(--glass-border);
+  position:relative;overflow:hidden;
+}
+.featured-thumb::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 80%,rgba(201,168,76,.1),transparent 60%);
+}
+.featured-info{padding:1.4rem 1.5rem 1.6rem;position:relative;z-index:1}
+.featured-title{font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
+.featured-studio{font-size:.75rem;color:var(--text-dim);margin-bottom:.7rem;letter-spacing:.03em}
+.featured-role{
+  display:inline-block;padding:.2rem .7rem;
+  background:rgba(201,168,76,.1);
+  border:1px solid rgba(201,168,76,.15);
+  color:var(--accent2);
+  border-radius:20px;font-size:.68rem;font-weight:600;
+}
+.featured-desc{font-size:.82rem;color:var(--text-dim);margin-top:.8rem;line-height:1.7}
+
+/* ===== Works ===== */
+.works-section{position:relative}
+.works-section::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);
+  z-index:-1;
+}
+.works-filters{
+  display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem;
+}
+.filter-btn{
+  padding:.45rem 1.1rem;border:1px solid var(--border);border-radius:20px;
+  background:transparent;color:var(--text-dim);font-size:.78rem;
+  cursor:pointer;transition:all .25s;font-family:var(--font);
+  letter-spacing:.02em;font-weight:500;
+}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{
+  background:var(--accent);color:var(--bg);border-color:var(--accent);
+  box-shadow:0 4px 15px rgba(201,168,76,.2);
+}
+.works-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.3rem;
+}
+.work-card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);overflow:hidden;
+  transition:all .35s;
+  cursor:pointer;position:relative;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.work-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(201,168,76,.25);
+  box-shadow:0 12px 35px rgba(0,0,0,.3),0 0 0 1px rgba(201,168,76,.08);
+}
+.work-card.hidden{display:none}
+.work-card .media-badge{position:absolute;top:10px;right:10px;background:rgba(201,168,76,.85);color:#0a0a0a;font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:10px;letter-spacing:.04em;z-index:2}
+.work-thumb{
+  height:110px;
+  background:linear-gradient(135deg,rgba(20,20,30,.8),rgba(10,10,15,.6));
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;border-bottom:1px solid var(--glass-border);
+  position:relative;overflow:hidden;
+}
+.work-thumb::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at center,rgba(201,168,76,.08),transparent 70%);
+  opacity:0;transition:opacity .4s;
+}
+.work-card:hover .work-thumb::before{opacity:1}
+.work-card:hover .work-thumb{font-size:2.3rem;transition:font-size .3s}
+.work-view-hint{
+  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  font-size:.62rem;color:var(--text-dim);letter-spacing:.12em;
+  opacity:0;transition:opacity .3s;text-transform:uppercase;
+}
+.work-card:hover .work-view-hint{opacity:.7}
+
+/* ===== Work Detail Modal ===== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.8);
+  z-index:200;display:none;align-items:center;justify-content:center;
+  padding:20px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.modal-overlay.show{display:flex;animation:fadeUp .3s ease-out}
+.modal-content{
+  background:rgba(14,14,22,.95);
+  border:1px solid rgba(201,168,76,.2);
+  border-radius:16px;max-width:900px;width:100%;max-height:90vh;
+  overflow-y:auto;position:relative;
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  box-shadow:0 25px 80px rgba(0,0,0,.6),0 0 0 1px rgba(201,168,76,.05);
+}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--text);width:36px;height:36px;border-radius:50%;
+  cursor:pointer;font-size:18px;z-index:3;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.modal-close:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.modal-media{
+  width:100%;aspect-ratio:16/9;background:#000;
+  border-radius:16px 16px 0 0;overflow:hidden;position:relative;
+}
+.modal-media iframe,.modal-media video{width:100%;height:100%;border:0;display:block}
+.modal-media .media-placeholder{
+  display:flex;align-items:center;justify-content:center;
+  height:100%;flex-direction:column;gap:14px;color:var(--text-dim);
+  background:linear-gradient(135deg,var(--bg3),var(--bg));
+}
+.modal-media .media-placeholder .icon{font-size:3rem;opacity:.3}
+.modal-media .media-placeholder p{font-size:.82rem;letter-spacing:.05em}
+.modal-storyboard{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:8px;padding:14px;background:var(--bg);
+}
+.modal-storyboard .sb-panel{
+  aspect-ratio:16/9;background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;overflow:hidden;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;color:var(--text-dim);
+}
+.modal-storyboard .sb-panel img{width:100%;height:100%;object-fit:cover}
+.modal-body{padding:28px 32px 32px}
+.modal-title{font-size:1.8rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;letter-spacing:.02em}
+.modal-studio{font-size:.82rem;color:var(--text-dim);margin-bottom:.5rem}
+.modal-role{display:inline-block;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--accent2);padding:.3rem .9rem;border-radius:16px;font-size:.72rem;font-weight:600;margin-bottom:1.2rem}
+.modal-desc{font-size:.92rem;line-height:1.9;color:var(--text-dim);margin-bottom:1.5rem}
+.modal-meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:1rem}
+.modal-meta-item{background:var(--glass);border:1px solid var(--glass-border);border-radius:10px;padding:12px 16px;backdrop-filter:blur(10px)}
+.modal-meta-item .label{font-size:.68rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.modal-meta-item .value{font-size:.88rem;font-weight:600}
+
+.work-header{
+  padding:1.2rem 1.4rem .6rem;
+}
+.work-title{font-size:1rem;font-weight:700;margin-bottom:.15rem}
+.work-studio{font-size:.75rem;color:var(--text-dim)}
+.work-body{padding:.5rem 1.4rem 1.3rem}
+.work-desc{font-size:.8rem;color:var(--text-dim);margin-bottom:.7rem;line-height:1.7}
+.work-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.tag{
+  display:inline-block;padding:.2rem .6rem;
+  border-radius:20px;font-size:.68rem;font-weight:600;
+  letter-spacing:.03em;
+}
+.tag-genga{background:rgba(66,133,244,.1);color:#6ea8fe;border:1px solid rgba(66,133,244,.15)}
+.tag-enshutsu{background:rgba(201,168,76,.1);color:var(--accent2);border:1px solid rgba(201,168,76,.15)}
+.tag-kantoku{background:rgba(220,53,69,.1);color:#ea868f;border:1px solid rgba(220,53,69,.15)}
+.tag-conte{background:rgba(111,66,193,.1);color:#b197fc;border:1px solid rgba(111,66,193,.15)}
+.tag-layout{background:rgba(25,135,84,.1);color:#75b798;border:1px solid rgba(25,135,84,.15)}
+.tag-kikaku{background:rgba(255,152,0,.1);color:#ffb74d;border:1px solid rgba(255,152,0,.15)}
+
+/* ===== Timeline ===== */
+.timeline{position:relative;max-width:700px;margin:0 auto}
+.timeline::before{
+  content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,var(--accent),var(--border),transparent);
+}
+.timeline-item{
+  position:relative;padding-left:56px;margin-bottom:2.5rem;
+}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-dot{
+  position:absolute;left:14px;top:4px;width:13px;height:13px;
+  border-radius:50%;background:var(--bg);
+  border:2px solid var(--accent);
+  box-shadow:0 0 12px rgba(201,168,76,.2);
+}
+.timeline-year{
+  font-size:.72rem;color:var(--accent);font-weight:700;
+  letter-spacing:.08em;margin-bottom:.3rem;
+}
+.timeline-content{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:var(--radius);padding:1.2rem 1.4rem;
+  transition:all .3s;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.timeline-content:hover{border-color:rgba(201,168,76,.2);background:rgba(201,168,76,.03)}
+.timeline-title{font-size:.95rem;font-weight:700;margin-bottom:.2rem}
+.timeline-desc{font-size:.82rem;color:var(--text-dim);line-height:1.7}
+
+/* ===== Skills ===== */
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:1.2rem;
+}
+.skill-card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);padding:1.6rem;
+  transition:all .3s;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  position:relative;overflow:hidden;
+}
+.skill-card::before{
+  content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;
+  background:radial-gradient(circle,rgba(201,168,76,.04),transparent 70%);
+  transition:opacity .3s;opacity:0;
+}
+.skill-card:hover{
+  border-color:rgba(201,168,76,.2);
+  transform:translateY(-3px);
+}
+.skill-card:hover::before{opacity:1}
+.skill-icon{font-size:1.6rem;margin-bottom:.8rem}
+.skill-name{font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.skill-desc{font-size:.8rem;color:var(--text-dim);line-height:1.7}
+
+/* ===== Contact ===== */
+.contact-wrap{
+  text-align:center;max-width:600px;margin:0 auto;
+}
+.contact-text{
+  font-size:.92rem;color:var(--text-dim);margin-bottom:2.5rem;line-height:1.9;
+}
+.contact-links{
+  display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
+}
+.contact-link{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.75rem 1.4rem;
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);color:var(--text-dim);
+  font-size:.82rem;transition:all .3s;
+  background:var(--glass);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.contact-link:hover{
+  border-color:rgba(201,168,76,.3);color:var(--accent);
+  background:rgba(201,168,76,.05);
+  transform:translateY(-2px);
+}
+.contact-link svg{width:16px;height:16px}
+
+/* ===== Footer ===== */
+.footer{
+  text-align:center;padding:2.5rem 2rem;
+  border-top:1px solid var(--glass-border);
+  font-size:.75rem;color:var(--text-dim);
+  letter-spacing:.04em;
+}
+
+/* ===== Back to Top ===== */
+.back-top{
+  position:fixed;bottom:2rem;right:2rem;z-index:90;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(201,168,76,.1);
+  border:1px solid rgba(201,168,76,.2);
+  color:var(--accent);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:all .3s;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.back-top.visible{opacity:1;pointer-events:auto}
+.back-top:hover{background:var(--accent);color:var(--bg);transform:translateY(-3px)}
+.back-top svg{width:18px;height:18px}
+
+/* ===== Animations ===== */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes float{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(8px)}
+}
+.fade-in{
+  opacity:0;transform:translateY(20px);
+  transition:opacity .7s ease-out,transform .7s ease-out;
+}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){
+  .featured-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .hamburger{display:flex}
+  .nav-menu{
+    position:fixed;top:0;right:-100%;width:280px;height:100vh;
+    background:rgba(10,10,15,.95);
+    backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+    flex-direction:column;
+    padding:5rem 2rem 2rem;gap:1.5rem;
+    transition:right .35s ease;z-index:99;
+    border-left:1px solid var(--glass-border);
+  }
+  .nav-menu.open{right:0}
+  .nav-links{flex-direction:column;gap:1.5rem}
+  .nav-links a{font-size:.95rem}
+  .nav-links a::after{display:none}
+  .lang-switch{margin-top:1.5rem}
+  section{padding:5rem 1.3rem}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .works-grid{grid-template-columns:1fr}
+  .hero-name{letter-spacing:.02em}
+  .section-title{font-size:1.8rem}
+  .timeline::before{left:16px}
+  .timeline-item{padding-left:46px}
+  .timeline-dot{left:10px}
+  .modal-body{padding:20px 18px 24px}
+  .modal-title{font-size:1.3rem}
+  .modal-storyboard{grid-template-columns:repeat(3,1fr);gap:6px;padding:10px}
+  .back-top{bottom:1.2rem;right:1.2rem;width:38px;height:38px}
+}
+@media(max-width:480px){
+  .about-stats{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+  .featured-grid{gap:1rem}
+  .works-filters{gap:.35rem}
+  .filter-btn{padding:.35rem .8rem;font-size:.72rem}
+  .contact-links{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Password Screen -->
+<div id="pw-screen">
+<div class="pw-box">
+<h2>PORTFOLIO</h2>
+<input type="password" id="pw-input" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')checkPw()">
+<button onclick="checkPw()">Enter</button>
+<div class="pw-err" id="pw-err"></div>
+</div>
+</div>
+<script>
+const PW_HASH='20428654d0253f48c139269ab85f1f96e0eb5b6de69f4689d10580ee370b72a9';
+async function sha256(str){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+async function checkPw(){
+  const v=document.getElementById('pw-input').value;
+  const h=await sha256(v);
+  if(h===PW_HASH||sessionStorage.getItem('pw-ok')==='1'){
+    document.getElementById('pw-screen').classList.add('hidden');
+    sessionStorage.setItem('pw-ok','1');
+  } else {
+    document.getElementById('pw-err').textContent='Incorrect password';
+    document.getElementById('pw-input').style.borderColor='#ff6b6b';
+    setTimeout(()=>{document.getElementById('pw-input').style.borderColor='';},1500);
+  }
+}
+if(sessionStorage.getItem('pw-ok')==='1')document.getElementById('pw-screen').classList.add('hidden');
+</script>
+
+<!-- ===== Navigation ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">SG</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-menu" id="navMenu">
+      <ul class="nav-links">
+        <li><a href="#about" data-i18n="nav_about">About</a></li>
+        <li><a href="#works" data-i18n="nav_works">Works</a></li>
+        <li><a href="#timeline" data-i18n="nav_timeline">Career</a></li>
+        <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="ja">JA</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-content">
+    <div class="hero-label" data-i18n="hero_label">MAPPA / France</div>
+    <h1 class="hero-name">Shota Goshozona</h1>
+    <p class="hero-title" data-i18n="hero_title">Animator / Director / Screenwriter</p>
+    <p class="hero-tagline" data-i18n="hero_tagline">Breathing life into stories across Japanese 2D animation and French 3D CG.</p>
+    <a href="#works" class="hero-cta" data-i18n="hero_cta">
+      View Works
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M12 5v14M19 12l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== Featured Works ===== -->
+<section class="featured-section" id="featured">
+  <div class="container fade-in">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="featured_title">Featured Works</h2>
+      <p class="section-sub" data-i18n="featured_sub">Highlights</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="featured-grid" id="featuredGrid"></div>
+  </div>
+</section>
+
+<!-- ===== About ===== -->
+<section id="about">
+  <div class="container fade-in">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="about_title">About</h2>
+      <p class="section-sub" data-i18n="about_sub">Profile</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p data-i18n="about_p1"><strong>Shota Goshozona</strong> is a creator working across Japan and France as an animator, episode director, screenwriter, and director.</p>
+        <p data-i18n="about_p2">In Japan, he contributed key animation and direction at studios including <strong>MAPPA</strong>, working on major titles such as "Jujutsu Kaisen," "Chainsaw Man," and "Mob Psycho 100."</p>
+        <p data-i18n="about_p3">Now based in France, he directs 3D CG animation projects, pursuing a new visual language that fuses Japanese and French sensibilities.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num" data-count="14">0</div>
+          <div class="stat-label" data-i18n="stat_projects">Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="2">0</div>
+          <div class="stat-label" data-i18n="stat_countries">Countries</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="5">0</div>
+          <div class="stat-label" data-i18n="stat_roles">Roles</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-static="2D/3D">2D/3D</div>
+          <div class="stat-label" data-i18n="stat_style">Style</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Works ===== -->
+<section id="works" class="works-section">
+  <div class="container fade-in">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="works_title">Works</h2>
+      <p class="section-sub" data-i18n="works_sub">All projects</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="works-filters">
+      <button class="filter-btn active" data-filter="all" data-i18n="filter_all">All</button>
+      <button class="filter-btn" data-filter="genga" data-i18n="filter_genga">Key Anim</button>
+      <button class="filter-btn" data-filter="enshutsu" data-i18n="filter_enshutsu">Direction</button>
+      <button class="filter-btn" data-filter="kantoku" data-i18n="filter_kantoku">Director</button>
+      <button class="filter-btn" data-filter="conte" data-i18n="filter_conte">Storyboard</button>
+      <button class="filter-btn" data-filter="layout" data-i18n="filter_layout">Layout</button>
+    </div>
+    <div class="works-grid" id="worksGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Timeline ===== -->
+<section id="timeline">
+  <div class="container fade-in">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="timeline_title">Career</h2>
+      <p class="section-sub" data-i18n="timeline_sub">Journey</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline" id="timelineContainer"></div>
+  </div>
+</section>
+
+<!-- ===== Skills ===== -->
+<section id="skills" class="works-section">
+  <div class="container fade-in">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="skills_title">Skills</h2>
+      <p class="section-sub" data-i18n="skills_sub">Expertise</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid" id="skillsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact">
+  <div class="container fade-in">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="contact_title">Contact</h2>
+      <p class="section-sub" data-i18n="contact_sub">Get in touch</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-wrap">
+      <p class="contact-text" data-i18n="contact_text">Feel free to reach out for work opportunities, collaborations, or inquiries.</p>
+      <div class="contact-links">
+        <a href="mailto:shota@example.com" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span>Email</span>
+        </a>
+        <a href="#" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          <span>X / Twitter</span>
+        </a>
+        <a href="#" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Work Detail Modal ===== -->
+<div class="modal-overlay" id="workModal" onclick="if(event.target===this)closeWorkModal()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeWorkModal()" aria-label="Close">&times;</button>
+    <div class="modal-content-inner"></div>
+  </div>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <p>&copy; 2026 Shota Goshozona. All rights reserved.</p>
+</footer>
+
+<!-- ===== Back to Top ===== -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+/* ===== Data ===== */
+const works = [
+  {id:'jtk3',  title:{ja:'呪術廻戦 3期',en:'Jujutsu Kaisen S3',fr:'Jujutsu Kaisen S3'},     studio:'MAPPA',  year:'2026', tags:['kantoku'], desc:{ja:'シリーズ監督として全体の演出設計を統括。',en:'Series director overseeing the entire directorial design.',fr:'Directeur de la serie, supervisant l\'ensemble de la conception de la mise en scene.'}, featured:true, icon:'🎬', media:null},
+  {id:'jtk_m', title:{ja:'呪術廻戦 劇場版',en:'Jujutsu Kaisen Movie',fr:'Jujutsu Kaisen Film'}, studio:'MAPPA', year:'2024', tags:['conte'],   desc:{ja:'劇場版のストーリーボード（コンテ）を担当。',en:'Storyboarding for the theatrical film.',fr:'Storyboard pour le film.'}, icon:'📖', media:null},
+  {id:'jtk2',  title:{ja:'呪術廻戦 2期',en:'Jujutsu Kaisen S2',fr:'Jujutsu Kaisen S2'},     studio:'MAPPA', year:'2023', tags:['enshutsu'],desc:{ja:'各話の演出を担当し、映像表現を高めた。',en:'Episode direction, enhancing visual storytelling.',fr:'Direction d\'episodes, sublimant la narration visuelle.'}, icon:'🎥', media:null},
+  {id:'jtk',   title:{ja:'呪術廻戦 1期',en:'Jujutsu Kaisen S1',fr:'Jujutsu Kaisen S1'},     studio:'MAPPA', year:'2020', tags:['genga'],   desc:{ja:'アクションシーンを中心に原画を担当。',en:'Key animation focusing on action scenes.',fr:'Animation cle centree sur les scenes d\'action.'}, icon:'✏️', media:null},
+  {id:'csm',   title:{ja:'チェンソーマン',en:'Chainsaw Man',fr:'Chainsaw Man'},              studio:'MAPPA', year:'2022', tags:['enshutsu'],desc:{ja:'ダークな世界観を活かした演出で作品を牽引。',en:'Direction leveraging the dark atmosphere of the series.',fr:'Mise en scene exploitant l\'atmosphere sombre de la serie.'}, featured:true, icon:'🔥', media:null},
+  {id:'mob2',  title:{ja:'モブサイコ100 II',en:'Mob Psycho 100 II',fr:'Mob Psycho 100 II'},  studio:'BONES', year:'2019', tags:['genga'],   desc:{ja:'ダイナミックなエフェクト原画を担当。',en:'Dynamic effects key animation.',fr:'Animation cle d\'effets dynamiques.'}, featured:true, icon:'💥', media:null},
+  {id:'fgo',   title:{ja:'Fate/Grand Order',en:'Fate/Grand Order',fr:'Fate/Grand Order'},    studio:'CloverWorks', year:'2019', tags:['genga','enshutsu'], desc:{ja:'原画と演出の両面で参加。',en:'Contributing both key animation and episode direction.',fr:'Contribution en animation cle et direction d\'episodes.'}, icon:'⚔️', media:null},
+  {id:'rkk',   title:{ja:'RKK',en:'RKK',fr:'RKK'},                                           studio:'—', year:'—', tags:['enshutsu'],desc:{ja:'演出を担当。',en:'Episode direction.',fr:'Direction d\'episodes.'}, icon:'🎞️', media:null},
+  {id:'bc',    title:{ja:'ブラッククローバー',en:'Black Clover',fr:'Black Clover'},            studio:'Pierrot', year:'2018', tags:['genga'],   desc:{ja:'バトルシーンの原画を担当。',en:'Key animation for battle scenes.',fr:'Animation cle pour les scenes de combat.'}, icon:'⚡', media:null},
+  {id:'sao',   title:{ja:'ソードアート・オンライン',en:'Sword Art Online',fr:'Sword Art Online'}, studio:'A-1 Pictures', year:'2018', tags:['genga'], desc:{ja:'原画として参加。',en:'Key animation.',fr:'Animation cle.'}, icon:'🗡️', media:null},
+  {id:'ntz',   title:{ja:'七つの大罪',en:'The Seven Deadly Sins',fr:'Seven Deadly Sins'},     studio:'A-1 Pictures', year:'2017', tags:['genga'], desc:{ja:'原画を担当。',en:'Key animation.',fr:'Animation cle.'}, icon:'✨', media:null},
+  {id:'ero',   title:{ja:'ERO',en:'ERO',fr:'ERO'},                                            studio:'—', year:'—', tags:['genga'],   desc:{ja:'原画を担当。',en:'Key animation.',fr:'Animation cle.'}, icon:'🎨', media:null},
+  {id:'tyn',   title:{ja:'TYN',en:'TYN',fr:'TYN'},                                            studio:'—', year:'—', tags:['genga','layout'], desc:{ja:'原画・レイアウトを担当。',en:'Key animation and layout.',fr:'Animation cle et layout.'}, icon:'📐', media:null},
+  {id:'goh',   title:{ja:'GOH',en:'GOH',fr:'GOH'},                                            studio:'—', year:'—', tags:['genga'],   desc:{ja:'原画を担当。',en:'Key animation.',fr:'Animation cle.'}, icon:'🖊️', media:null},
+];
+
+const tagLabels = {
+  genga:   {ja:'原画',en:'Key Animation',fr:'Animation cle'},
+  enshutsu:{ja:'演出',en:'Direction',fr:'Mise en scene'},
+  kantoku: {ja:'監督',en:'Director',fr:'Directeur'},
+  conte:   {ja:'コンテ',en:'Storyboard',fr:'Storyboard'},
+  layout:  {ja:'レイアウト',en:'Layout',fr:'Layout'},
+  kikaku:  {ja:'企画',en:'Planning',fr:'Planification'},
+};
+
+const skillsData = [
+  {icon:'✏️', name:{ja:'原画 / Key Animation',en:'Key Animation',fr:'Animation cle'}, desc:{ja:'キャラクターの動きとアクションの核を生み出す原画力。',en:'Creating the core motion and action through key frames.',fr:'Creer le mouvement et l\'action a travers les images cles.'}},
+  {icon:'🎬', name:{ja:'演出 / Direction',en:'Episode Direction',fr:'Mise en scene'}, desc:{ja:'カメラワーク、テンポ、感情表現を設計し物語を紡ぐ。',en:'Designing camerawork, pacing, and emotional expression.',fr:'Concevoir le cadrage, le rythme et l\'expression emotionnelle.'}},
+  {icon:'📖', name:{ja:'脚本 / Screenwriting',en:'Screenwriting',fr:'Scenarisation'}, desc:{ja:'構成力のあるストーリーテリングと脚本執筆。',en:'Structured storytelling and screenplay writing.',fr:'Narration structuree et ecriture de scenario.'}},
+  {icon:'📐', name:{ja:'ストーリーボード',en:'Storyboarding',fr:'Storyboard'}, desc:{ja:'物語の流れを絵コンテとして具現化する。',en:'Visualizing the narrative flow through storyboards.',fr:'Visualiser le flux narratif a travers le storyboard.'}},
+  {icon:'🎯', name:{ja:'監督',en:'Directing',fr:'Direction generale'}, desc:{ja:'作品全体のビジョンを統括し、チームを率いる。',en:'Overseeing the entire vision and leading the team.',fr:'Superviser la vision globale et diriger l\'equipe.'}},
+  {icon:'💻', name:{ja:'3DCG',en:'3D CG Animation',fr:'Animation 3D CG'}, desc:{ja:'海外プロジェクトでの3DCGアニメーション制作。',en:'3D CG animation for international projects.',fr:'Animation 3D CG pour des projets internationaux.'}},
+  {icon:'🌐', name:{ja:'多言語対応',en:'Multilingual',fr:'Multilingue'}, desc:{ja:'日本語・英語・フランス語でのコミュニケーション。',en:'Communication in Japanese, English, and French.',fr:'Communication en japonais, anglais et francais.'}},
+  {icon:'💡', name:{ja:'企画 / Planning',en:'Project Planning',fr:'Planification'}, desc:{ja:'オリジナル作品の企画立案と世界観構築。',en:'Original project planning and world-building.',fr:'Planification de projets originaux et creation d\'univers.'}},
+];
+
+const timelineData = [
+  {year:'2026', title:{ja:'呪術廻戦 3期 — シリーズ監督',en:'Jujutsu Kaisen S3 — Series Director',fr:'Jujutsu Kaisen S3 — Directeur de serie'}, desc:{ja:'MAPPAにてシリーズ監督として全体の演出設計を統括。',en:'Overseeing the entire directorial design at MAPPA as series director.',fr:'Superviser l\'ensemble de la mise en scene chez MAPPA.'}},
+  {year:'2024', title:{ja:'呪術廻戦 劇場版 — コンテ',en:'Jujutsu Kaisen Movie — Storyboard',fr:'Jujutsu Kaisen Film — Storyboard'}, desc:{ja:'劇場版のストーリーボードを担当。',en:'Storyboarding for the theatrical film.',fr:'Storyboard pour le film.'}},
+  {year:'2022-23', title:{ja:'チェンソーマン / 呪術廻戦 2期 — 演出',en:'Chainsaw Man / JJK S2 — Direction',fr:'Chainsaw Man / JJK S2 — Mise en scene'}, desc:{ja:'MAPPAの話題作で演出を連続担当。',en:'Consecutive directing roles on MAPPA flagship titles.',fr:'Roles de direction consecutifs sur les titres phares de MAPPA.'}},
+  {year:'2019-20', title:{ja:'呪術廻戦 1期 / Mob Psycho / FGO — 原画',en:'JJK S1 / Mob Psycho / FGO — Key Animation',fr:'JJK S1 / Mob Psycho / FGO — Animation cle'}, desc:{ja:'複数スタジオで原画を担当し、アクション作画の技術を磨く。',en:'Key animation across multiple studios, honing action drawing skills.',fr:'Animation cle dans plusieurs studios, affinant les competences de dessin d\'action.'}},
+  {year:'2017-18', title:{ja:'七つの大罪 / Black Clover / SAO — 原画',en:'7DS / Black Clover / SAO — Key Animation',fr:'7DS / Black Clover / SAO — Animation cle'}, desc:{ja:'A-1 Pictures, Pierrotで原画アニメーターとしてキャリアをスタート。',en:'Started career as key animator at A-1 Pictures and Pierrot.',fr:'Debut de carriere comme animateur cle chez A-1 Pictures et Pierrot.'}},
+  {year:'Now', title:{ja:'フランス拠点 — 3DCG企画・監督',en:'Based in France — 3DCG Planning & Direction',fr:'Base en France — Planification et direction 3DCG'}, desc:{ja:'日仏の表現を融合した3DCGアニメーション作品を企画・監督中。',en:'Planning and directing 3DCG animation projects fusing Japanese and French sensibilities.',fr:'Planification et direction de projets 3DCG fusionnant les sensibilites japonaises et francaises.'}},
+];
+
+/* ===== i18n ===== */
+const i18n = {
+  ja:{
+    nav_about:'About',nav_works:'Works',nav_timeline:'Career',nav_skills:'Skills',nav_contact:'Contact',
+    hero_label:'MAPPA / France',
+    hero_title:'アニメーター / 監督 / 脚本家',
+    hero_tagline:'日本の2Dアニメーションとフランスを拠点とした3DCGの世界で、物語に命を吹き込む。',
+    hero_cta:'作品を見る',
+    featured_title:'Featured Works',
+    featured_sub:'代表作品',
+    featured_badge:'代表作',
+    about_title:'About',
+    about_sub:'プロフィール',
+    about_p1:'<strong>御所園翔太</strong>は、アニメーター、演出家、脚本家、そして監督として、日本とフランスを股にかけて活動するクリエイターです。',
+    about_p2:'日本では<strong>MAPPA</strong>をはじめとするスタジオで2Dアニメーションの原画・演出を担当。「呪術廻戦」「チェンソーマン」「モブサイコ100」など数々の話題作に参加してきました。',
+    about_p3:'現在はフランスを拠点に、3DCGアニメーションの企画・監督を手がけ、日仏の表現を融合した新たな映像世界を追求しています。',
+    stat_projects:'参加作品',stat_countries:'活動拠点',stat_roles:'担当ポジション',stat_style:'制作スタイル',
+    works_title:'Works',
+    works_sub:'全作品一覧',
+    filter_all:'すべて',filter_genga:'原画',filter_enshutsu:'演出',filter_kantoku:'監督',filter_conte:'コンテ',filter_layout:'レイアウト',
+    timeline_title:'Career',
+    timeline_sub:'キャリア',
+    skills_title:'Skills',
+    skills_sub:'専門スキル',
+    contact_title:'Contact',
+    contact_sub:'お問い合わせ',
+    contact_text:'お仕事のご依頼・コラボレーションのご相談など、お気軽にお問い合わせください。',
+  },
+  en:{
+    nav_about:'About',nav_works:'Works',nav_timeline:'Career',nav_skills:'Skills',nav_contact:'Contact',
+    hero_label:'MAPPA / France',
+    hero_title:'Animator / Director / Screenwriter',
+    hero_tagline:'Breathing life into stories across Japanese 2D animation and French 3D CG.',
+    hero_cta:'View Works',
+    featured_title:'Featured Works',
+    featured_sub:'Highlights',
+    featured_badge:'Featured',
+    about_title:'About',
+    about_sub:'Profile',
+    about_p1:'<strong>Shota Goshozona</strong> is a creator working across Japan and France as an animator, episode director, screenwriter, and director.',
+    about_p2:'In Japan, he contributed key animation and direction at studios including <strong>MAPPA</strong>, working on major titles such as "Jujutsu Kaisen," "Chainsaw Man," and "Mob Psycho 100."',
+    about_p3:'Now based in France, he directs 3D CG animation projects, pursuing a new visual language that fuses Japanese and French sensibilities.',
+    stat_projects:'Projects',stat_countries:'Countries',stat_roles:'Roles',stat_style:'Style',
+    works_title:'Works',
+    works_sub:'All projects',
+    filter_all:'All',filter_genga:'Key Anim',filter_enshutsu:'Direction',filter_kantoku:'Director',filter_conte:'Storyboard',filter_layout:'Layout',
+    timeline_title:'Career',
+    timeline_sub:'Journey',
+    skills_title:'Skills',
+    skills_sub:'Expertise',
+    contact_title:'Contact',
+    contact_sub:'Get in touch',
+    contact_text:'Feel free to reach out for work opportunities, collaborations, or inquiries.',
+  },
+  fr:{
+    nav_about:'A propos',nav_works:'Travaux',nav_timeline:'Parcours',nav_skills:'Competences',nav_contact:'Contact',
+    hero_label:'MAPPA / France',
+    hero_title:'Animateur / Realisateur / Scenariste',
+    hero_tagline:'Donner vie aux histoires a travers l\'animation 2D japonaise et la 3D CG en France.',
+    hero_cta:'Voir les travaux',
+    featured_title:'Travaux Vedettes',
+    featured_sub:'Points forts',
+    featured_badge:'Vedette',
+    about_title:'A propos',
+    about_sub:'Profil',
+    about_p1:'<strong>Shota Goshozona</strong> est un createur travaillant entre le Japon et la France en tant qu\'animateur, metteur en scene, scenariste et realisateur.',
+    about_p2:'Au Japon, il a contribue a l\'animation cle et a la mise en scene dans des studios dont <strong>MAPPA</strong>, sur des titres majeurs tels que "Jujutsu Kaisen", "Chainsaw Man" et "Mob Psycho 100".',
+    about_p3:'Desormais base en France, il realise des projets d\'animation 3D CG, poursuivant un nouveau langage visuel fusionnant les sensibilites japonaises et francaises.',
+    stat_projects:'Projets',stat_countries:'Pays',stat_roles:'Postes',stat_style:'Style',
+    works_title:'Travaux',
+    works_sub:'Tous les projets',
+    filter_all:'Tous',filter_genga:'Anim cle',filter_enshutsu:'Mise en scene',filter_kantoku:'Realisateur',filter_conte:'Storyboard',filter_layout:'Layout',
+    timeline_title:'Parcours',
+    timeline_sub:'Parcours',
+    skills_title:'Competences',
+    skills_sub:'Expertise',
+    contact_title:'Contact',
+    contact_sub:'Nous contacter',
+    contact_text:'N\'hesitez pas a me contacter pour des opportunites, collaborations ou questions.',
+  }
+};
+
+let currentLang = 'ja';
+
+/* ===== Hero Particles ===== */
+function createParticles(){
+  const container = document.getElementById('heroParticles');
+  container.innerHTML = '';
+  for(let i=0;i<20;i++){
+    const s = document.createElement('span');
+    s.style.left = Math.random()*100+'%';
+    s.style.animationDelay = Math.random()*6+'s';
+    s.style.animationDuration = (4+Math.random()*4)+'s';
+    s.style.width = s.style.height = (1+Math.random()*2)+'px';
+    container.appendChild(s);
+  }
+}
+
+/* ===== Render Featured ===== */
+function renderFeatured(){
+  const grid = document.getElementById('featuredGrid');
+  const featured = works.filter(w => w.featured);
+  const badgeText = i18n[currentLang].featured_badge || 'Featured';
+  grid.innerHTML = featured.map(w => `
+    <div class="featured-card" data-id="${w.id}">
+      <div class="featured-badge">${badgeText}</div>
+      <div class="featured-thumb">${w.icon || ''}</div>
+      <div class="featured-info">
+        <div class="featured-title">${w.title[currentLang]}</div>
+        <div class="featured-studio">${w.studio} · ${w.year}</div>
+        <span class="featured-role">${w.tags.map(t => tagLabels[t][currentLang]).join(' / ')}</span>
+        <div class="featured-desc">${w.desc[currentLang]}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ===== Render Works ===== */
+function renderWorks(){
+  const grid = document.getElementById('worksGrid');
+  const viewLabel = {ja:'クリックで詳細',en:'CLICK TO VIEW',fr:'VOIR DETAILS'}[currentLang];
+  grid.innerHTML = works.map(w => {
+    const hasMedia = w.media && (w.media.type==='youtube'||w.media.type==='vimeo'||w.media.type==='mp4'||(w.media.type==='storyboard'&&w.media.panels&&w.media.panels.length));
+    const mediaBadge = hasMedia ? `<div class="media-badge">${w.media.type==='storyboard'?'📐 絵コンテ':'▶ 動画'}</div>` : '';
+    return `
+    <div class="work-card" data-tags="${w.tags.join(',')}" data-id="${w.id}">
+      ${mediaBadge}
+      <div class="work-thumb">${w.icon || ''}<div class="work-view-hint">${viewLabel}</div></div>
+      <div class="work-header">
+        <div class="work-title">${w.title[currentLang]}</div>
+        <div class="work-studio">${w.studio}${w.year && w.year!=='—'?` · ${w.year}`:''}</div>
+      </div>
+      <div class="work-body">
+        <div class="work-desc">${w.desc[currentLang]}</div>
+        <div class="work-tags">
+          ${w.tags.map(t => `<span class="tag tag-${t}">${tagLabels[t][currentLang]}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;}).join('');
+}
+
+/* ===== Render Timeline ===== */
+function renderTimeline(){
+  const container = document.getElementById('timelineContainer');
+  container.innerHTML = timelineData.map(t => `
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">${t.year}</div>
+      <div class="timeline-content">
+        <div class="timeline-title">${t.title[currentLang]}</div>
+        <div class="timeline-desc">${t.desc[currentLang]}</div>
+      </div>
+    </div>
+  `).join('');
+  // Re-observe new fade-in elements
+  document.querySelectorAll('.timeline-item.fade-in').forEach(el => observer.observe(el));
+}
+
+/* ===== Work Detail Modal ===== */
+function openWorkModal(id){
+  const w = works.find(x => x.id === id);
+  if(!w) return;
+  const lang = currentLang;
+  const labels = {
+    ja:{studio:'スタジオ',year:'制作年',role:'担当',mediaSoon:'メディア準備中',mediaSoonDesc:'動画・絵コンテは追って公開予定'},
+    en:{studio:'Studio',year:'Year',role:'Role',mediaSoon:'Media Coming Soon',mediaSoonDesc:'Videos and storyboards to be added'},
+    fr:{studio:'Studio',year:'Annee',role:'Poste',mediaSoon:'Media a venir',mediaSoonDesc:'Videos et storyboards a ajouter'}
+  }[lang];
+
+  let mediaHtml = '';
+  if(w.media && w.media.type === 'youtube'){
+    mediaHtml = `<div class="modal-media"><iframe src="https://www.youtube.com/embed/${w.media.id}?rel=0" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>`;
+  } else if(w.media && w.media.type === 'vimeo'){
+    mediaHtml = `<div class="modal-media"><iframe src="https://player.vimeo.com/video/${w.media.id}" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>`;
+  } else if(w.media && w.media.type === 'mp4'){
+    mediaHtml = `<div class="modal-media"><video src="${w.media.url}" controls poster="${w.media.poster||''}"></video></div>`;
+  } else if(w.media && w.media.type === 'storyboard' && w.media.panels && w.media.panels.length){
+    const panels = w.media.panels.map((p,i) => `<div class="sb-panel"><img src="${p}" alt="Panel ${i+1}" loading="lazy"></div>`).join('');
+    mediaHtml = `<div class="modal-storyboard">${panels}</div>`;
+  } else {
+    mediaHtml = `<div class="modal-media"><div class="media-placeholder">
+      <div class="icon">${w.icon || '🎬'}</div>
+      <p><strong>${labels.mediaSoon}</strong></p>
+      <p style="font-size:.75rem;opacity:.6">${labels.mediaSoonDesc}</p>
+    </div></div>`;
+  }
+
+  const rolesList = w.tags.map(t => tagLabels[t][lang]).join(' / ');
+  const metaGrid = `
+    <div class="modal-meta-grid">
+      <div class="modal-meta-item"><div class="label">${labels.studio}</div><div class="value">${w.studio}</div></div>
+      ${w.year && w.year !== '—' ? `<div class="modal-meta-item"><div class="label">${labels.year}</div><div class="value">${w.year}</div></div>` : ''}
+      <div class="modal-meta-item"><div class="label">${labels.role}</div><div class="value">${rolesList}</div></div>
+    </div>`;
+
+  const content = `
+    ${mediaHtml}
+    <div class="modal-body">
+      <div class="modal-title">${w.title[lang]}</div>
+      <div class="modal-studio">${w.studio}${w.year && w.year !== '—' ? ` · ${w.year}` : ''}</div>
+      <div class="modal-role">${rolesList}</div>
+      <div class="modal-desc">${w.desc[lang]}</div>
+      ${metaGrid}
+    </div>
+  `;
+  const modal = document.getElementById('workModal');
+  modal.querySelector('.modal-content-inner').innerHTML = content;
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeWorkModal(){
+  const modal = document.getElementById('workModal');
+  modal.classList.remove('show');
+  const iframe = modal.querySelector('iframe');
+  if(iframe) iframe.src = '';
+  const video = modal.querySelector('video');
+  if(video) video.pause();
+  document.body.style.overflow = '';
+}
+
+/* ===== Render Skills ===== */
+function renderSkills(){
+  const grid = document.getElementById('skillsGrid');
+  grid.innerHTML = skillsData.map(s => `
+    <div class="skill-card">
+      <div class="skill-icon">${s.icon}</div>
+      <div class="skill-name">${s.name[currentLang]}</div>
+      <div class="skill-desc">${s.desc[currentLang]}</div>
+    </div>
+  `).join('');
+}
+
+/* ===== i18n Apply ===== */
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if(i18n[lang][key]){
+      if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = i18n[lang][key];
+      else el.innerHTML = i18n[lang][key];
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  renderFeatured();
+  renderWorks();
+  renderTimeline();
+  renderSkills();
+  const activeFilter = document.querySelector('.filter-btn.active');
+  if(activeFilter) filterWorks(activeFilter.dataset.filter);
+}
+
+/* ===== Filter with animation ===== */
+function filterWorks(tag){
+  document.querySelectorAll('.work-card').forEach(card => {
+    if(tag === 'all'){
+      card.classList.remove('hidden');
+    } else {
+      card.classList.toggle('hidden', !card.dataset.tags.includes(tag));
+    }
+  });
+}
+
+/* ===== Stat Counter Animation ===== */
+function animateStats(){
+  document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    if(isNaN(target)) return;
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 30));
+    const interval = setInterval(() => {
+      current += step;
+      if(current >= target){
+        current = target;
+        clearInterval(interval);
+        el.textContent = target + '+';
+      } else {
+        el.textContent = current;
+      }
+    }, 40);
+  });
+}
+
+/* ===== Active Nav Link ===== */
+function updateActiveNav(){
+  const sections = ['about','works','timeline','skills','contact'];
+  const scrollPos = window.scrollY + 120;
+  let activeId = '';
+  sections.forEach(id => {
+    const section = document.getElementById(id);
+    if(section && section.offsetTop <= scrollPos){
+      activeId = id;
+    }
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + activeId);
+  });
+}
+
+/* ===== Events ===== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      // Trigger stat counter when about section visible
+      if(entry.target.closest && entry.target.closest('#about')){
+        animateStats();
+      }
+    }
+  });
+}, {threshold: 0.1});
+
+document.addEventListener('DOMContentLoaded', () => {
+  createParticles();
+  renderFeatured();
+  renderWorks();
+  renderTimeline();
+  renderSkills();
+  applyLang('ja');
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+      // Close mobile menu
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('navMenu').classList.remove('open');
+    });
+  });
+
+  // Language switch
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+  });
+
+  // Filter
+  document.querySelector('.works-filters').addEventListener('click', e => {
+    if(!e.target.classList.contains('filter-btn')) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    filterWorks(e.target.dataset.filter);
+  });
+
+  // Work card click
+  document.getElementById('worksGrid').addEventListener('click', e => {
+    const card = e.target.closest('.work-card');
+    if(!card) return;
+    openWorkModal(card.dataset.id);
+  });
+  document.getElementById('featuredGrid').addEventListener('click', e => {
+    const card = e.target.closest('.featured-card');
+    if(!card || !card.dataset.id) return;
+    openWorkModal(card.dataset.id);
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') closeWorkModal();
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+
+  // Scroll observer
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav hide on scroll + progress + back-to-top + active nav
+  let lastScroll = 0;
+  const nav = document.getElementById('nav');
+  const backTop = document.getElementById('backTop');
+  const scrollProgress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const curr = window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    // Nav hide/show
+    nav.style.transform = curr > lastScroll && curr > 80 ? 'translateY(-100%)' : 'translateY(0)';
+    nav.classList.toggle('scrolled', curr > 50);
+    lastScroll = curr;
+    // Scroll progress
+    scrollProgress.style.width = (curr / docHeight * 100) + '%';
+    // Back to top
+    backTop.classList.toggle('visible', curr > 400);
+    // Active nav
+    updateActiveNav();
+  });
+});
+</script>
+</body>
+</html>
